@@ -3,15 +3,41 @@
   <head> 
     <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
     <style>
+      
       body {
         background-color: #000000
       }
-      #header {
+      .swipe {
+        width: 25%;
+        height: 100%;
+        display: block;
+        position: absolute;
+        left: 0%;
+        top: 100%;
+        transition: all 0.8s ease-in-out;
+        transform-origin: 50% 50%;
+        background-color: #eeeeee;
+        z-index: 55;
+      }
+      #swipe2 {
+        left: 25%;
+        transition-delay: 0.3s;
+      }
+      #swipe3 {
+        left: 50%;
+        transition-delay: 0.6s;
+      }
+      #swipe4 {
+        left: 75%;
+        transition-delay: 0.9s;
+      }
+      .header {
         font-family: 'Raleway', sans-serif;
         font-size: 40px;
         font-weight: thin;
         color: white;
       }
+      #space {color: #999999;font-weight: normal;}
       #cont {
         width: 10%;
         padding-top: 10%;
@@ -21,115 +47,66 @@
         top: 40%;
         z-index: 10;
         border-radius: 50%;
+        transition: transform 0.66s ease-out;
       }
       .menu {
         width: 100%;
         padding-top: 100%;
         display: block;
         background-color: #eeeeee;
-        border-radius: 25%;
+        border-radius: 50%;
         position: absolute;
         left: 0%;
         top: 0%;
         transform-origin: 50% 50%;
+        transition: transform 0.8s ease-in-out, background-color 0.1s linear;
       }
-
-      .a{animation: a     2s forwards;}
-      .b{animation: b     2s forwards;}
-      .c{animation: c     2s forwards;}
-      .d{animation: d     2s forwards;}
-      .e{animation: e     2s forwards;}
-      .f{animation: f     2s forwards;}
+      .menu:hover {
+        background-color: #bbbbbb;
+      }
       .cont{animation: up 2s forwards;z-index: 1;}
-      .grow{animation: expand 2s forwards;}
-      
-      @keyframes expand {
-        50% {
-        }
-        100%{
-          width: 2000%;
-          padding-top: 2000%;
-          left: -1000%;
-          top: -1000%;
-          background-color: white;
-          z-index: 30;
-        }
-      }
-      @keyframes up {
-        33% {transform: translate(0%, -150%)}
-        100% {transform: translate(0%, -150%)}
-      }
-      @keyframes a {
-        33%{transform: rotate(0deg)}
-        100%{
-        transform-origin: 50% 200%;
-        transform: rotate(0deg);
-        }
-      }
-      @keyframes b {
-        33%{transform: rotate(0deg)}
-        100%{
-          transform-origin: 50% 200%;
-        transform: rotate(60deg);
-        }
-      }
-      @keyframes c {
-        33%{transform: rotate(0deg)}
-        100%{
-          transform-origin: 50% 200%;
-        transform: rotate(120deg);
-        }
-      }
-      @keyframes d {
-        33%{transform: rotate(0deg)}
-        100%{
-          transform-origin: 50% 200%;
-        transform: rotate(180deg);
-        }
-      }
-      @keyframes e {
-        33%{transform: rotate(0deg)}
-        100%{
-          transform-origin: 50% 200%;
-        transform: rotate(240deg);
-        }
-      }
-      @keyframes f {
-        33%{transform: rotate(0deg)}
-        100%{
-          transform-origin: 50% 200%;
-        transform: rotate(300deg);
-        }
-      }
+      .fill{opacitiy: 1;
+            z-index: 50;}
     </style>
     <script type="text/javascript">
       var scaleTime = false
-      function choose(el) {
-        el.classList.add("cont")
+      function fan(el) {
+        el.style.transform="translate(0,-150%)"
         var a = ["a","b","c","d","e","f"]
         var i = 0
+        setTimeout(()=>{
         while(i<a.length){
-          document.getElementById(a[i]).classList.add(a[i])
+          document.getElementById(a[i]).style.transform="rotate("+(i*(360/a.length))+"deg)"
+          document.getElementById(a[i]).style.transformOrigin="50% 200%"
           i++
         }
-        scaleTime = true
+        scaleTime=true
+        },600)
       }
-      function scale(el) {
+      
+      function select(el,src) {
         if(!scaleTime)return
-        el.classList.add("grow")
+        document.getElementById("swipe1").style.top="0%"
+        document.getElementById("swipe2").style.top="0%"
+        document.getElementById("swipe3").style.top="0%"
+        document.getElementById("swipe4").style.top="0%"
         scaleTime=false
       }
     </script>
   </head>  
-  <p1 id="header">maplespace.me</p1>
   <body>
-    <div id="cont" onclick="choose(this)">
-    <div class="menu" id="a" onclick="scale(this)"></div>
-    <div class="menu" id="b" onclick="scale(this)"></div>
-    <div class="menu" id="c" onclick="scale(this)"></div>
-    <div class="menu" id="d" onclick="scale(this)"></div>
-    <div class="menu" id="e" onclick="scale(this)"></div>
-    <div class="menu" id="f" onclick="scale(this)"></div>
+    <p1 class="header">MAPLE<p1 class="header" id="space">SPACE</p1>.ME</p1>
+    <span id="swipe1" class="swipe"></span>
+    <span id="swipe2" class="swipe"></span>
+    <span id="swipe3" class="swipe"></span>
+    <span id="swipe4" class="swipe"></span>
+    <div id="cont" onclick="fan(this)">
+    <div class="menu" id="a" onclick="select(this)"></div>
+    <div class="menu" id="b" onclick="select(this)"></div>
+    <div class="menu" id="c" onclick="select(this)"></div>
+    <div class="menu" id="d" onclick="select(this)"></div>
+    <div class="menu" id="e" onclick="select(this)"></div>
+    <div class="menu" id="f" onclick="select(this)"></div>
     <div id="over"></div>
     </div>
   </body>
