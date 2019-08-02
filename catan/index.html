@@ -1,0 +1,270 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/p5.js"></script>
+    <script>
+    var board = [
+        " "," "," ",
+      " "," "," "," ",
+    " "," "," "," "," ",
+      " "," "," "," ",
+        " "," "," "
+    ]
+    var numBoard = [
+        " "," "," ",
+      " "," "," "," ",
+    " "," "," "," "," ",
+      " "," "," "," ",
+        " "," "," "
+    ]
+    var harb = [
+      "g","l","w","o","b","?","?","?","?"
+    ] 
+    /*
+    g: grain/field    l: lumber/forest
+    w: wool/pasture   o: ore/mountains
+    b: brick/hills    d: desert
+    */
+    var colors = [
+      [250,  0,125,175,200,200],
+      [200,125,220,175, 75,160],
+      [ 75,  0, 75,175, 30, 70]
+    ]
+    var colorIndex = 
+      ["g","l","w","o","b","d"]
+    var tilesX = [
+           163.3,250.0,336.6,
+        120.1,206.7,293.3,379.9,
+      76.7,163.3,250.0,336.6,423.2,
+        120.1,206.7,293.3,379.9,
+           163.3,250.0,336.6
+    ]
+    var tilesY = [
+          100,100,100,
+        175,175,175,175,
+      250,250,250,250,250,
+        325,325,325,325,
+          400,400,400,
+    ]
+    window.onload=function(){
+      writeBoard()
+    }
+    function writeBoard() {
+        var tiles = [
+        "g","g","g","g","l","l","l","l",
+        "w","w","w","w","o","o","o","b",
+        "b","b","d"]
+        var numTiles = [
+        5,2,6,3,8,10,9,12,11,4,8,10,9,4,5,6,3,11
+        ]
+        var distordr = [16,17,18,15,11,6,2,1,0,3,7,12,13,14,10,5,4,8,9]
+        var i = 0;
+        while(i<board.length){
+          var r = Math.floor(Math.random()*tiles.length);
+          board.splice(i,1,tiles[r])
+          tiles.splice(r,1)
+          i++;
+        } 
+      
+        i = 0;
+        while(i<numBoard.length){
+          var r = Math.floor(Math.random()*numTiles.length);
+          if(board[i]!=="d"){
+          numBoard.splice(i,1,numTiles[r])
+          numTiles.splice(r,1)
+          }else{numBoard.splice(i,1," ")}
+          i++;
+        }
+        i = 0;
+        while(i<harb.length){
+          var r = Math.floor(Math.random()*harb.length)
+          var swap = harb[r]
+          harb.splice(r,1,harb[i])
+          harb[i]=swap
+          i++;
+        }
+      console.log(harb)
+      console.log(board)
+      console.log(numBoard)
+    }
+      
+    function generate() {
+      push();
+      fill(125,175,250);
+      polygon(250,250,250,6);
+      pop();
+      var i = 0;
+      while(i<board.length){
+      
+      push();
+      translate(tilesX[i],tilesY[i]);
+      rotate(TWO_PI/6/2)
+      var a = colorIndex.indexOf(board[i])
+      fill(colors[0][a],colors[1][a],colors[2][a])
+      polygon( 0, 0, 50, 6);
+      pop();
+      
+      if(numBoard[i]!==" "){
+      push();
+      fill(230,200,125)
+      circle(tilesX[i],tilesY[i],40)
+      pop();
+      }
+  
+      push();
+      textFont('Georgia');
+      if(numBoard[i]==6||numBoard[i]==8){fill(220,10,10)}else{fill(10)}
+      textSize(28);
+      translate(tilesX[i],tilesY[i]+7);
+      textAlign(CENTER);
+      text(numBoard[i], 0, 0);
+      pop();
+      i++;
+      }
+    }
+      
+    function draw() { 
+      generate()
+    }
+    function setup() { 
+      createCanvas(500, 500);
+    } 
+
+    function polygon(x, y, radius, npoints) {
+      let angle = TWO_PI / npoints;
+      beginShape();
+      for (let a = 0; a < TWO_PI; a += angle) {
+        let sx = x + cos(a) * radius;
+        let sy = y + sin(a) * radius;
+        vertex(sx, sy);
+      }
+      endShape(CLOSE);
+    }
+      window.onload=function() {
+        document.getElementById("swipe1").style.top="-100%"
+        document.getElementById("swipe2").style.top="-100%"
+        document.getElementById("swipe3").style.top="-100%"
+        document.getElementById("swipe4").style.top="-100%"
+      }
+    </script>
+    <style>
+      body {
+        background-color: #111;
+      }
+      .p5Canvas {
+        position: absolute;
+        left: 50%;
+        margin-left: -250px;
+        top: -3%;
+      }
+      #gen {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+        width: 200px;
+        height: 75px;
+        background-color: #888888;
+        font-size: 24px;
+        position: absolute;
+        left: 50%;
+        top: 80%;
+        margin-left: -100px;
+        border-radius: 37.5px;
+        font-family: "Raleway", sans-serif;
+        text-align: center;
+        color: #eeeeee;
+        border: 2px #eeeeee solid;
+      }
+      #gentext {
+        color: #eeeeee;
+        font-weight: bold;
+        margin-top: -300px;
+      }
+      #checkboxbox {
+        float: left;
+        width: 18px;
+        height: auto;
+        display: block;
+        background-color: #cccccc;
+        border-radius: 3px;
+      }
+      #options {
+        width: 300px;
+        height: auto;
+        display: block;
+        background-color: #e5e5e5;
+      }
+      #header {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+        color: #eee;
+        font-family: "Raleway", sans-serif;
+      }
+      .swipe {
+        width: 25%;
+        height: 100%;
+        display: block;
+        position: absolute;
+        left: 0%;
+        top: 0%;
+        transition: all 0.8s ease-in-out;
+        transform-origin: 50% 50%;
+        background-color: #eeeeee;
+        z-index: 55;
+      }
+      #swipe2 {
+        left: 25%;
+        transition-delay: 0.3s;
+      }
+      #swipe3 {
+        left: 50%;
+        transition-delay: 0.6s;
+      }
+      #swipe4 {
+        left: 75%;
+        transition-delay: 0.9s;
+      }
+      .optiontext {
+        font-size: 24px;
+        color: #aaaaaa;
+        font-family: "Raleway",sans-serif;
+        margin-left: 30px;
+      }
+      #checkboxbox {
+        width: 300px;
+        height: 300px;
+        background-color: #999999;
+        border-radius: 20%;
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <span id="swipe1" class="swipe"></span>
+    <span id="swipe2" class="swipe"></span>
+    <span id="swipe3" class="swipe"></span>
+    <span id="swipe4" class="swipe"></span>
+    <div onclick="writeBoard()" id="gen">
+      <p id="buttontext">
+        Generate!
+      </p>
+    </div>
+    <h1 id="header">
+      CATAN board genereator
+    </h1>
+    <div class="checkboxbox">
+<!--       <div class="fakecheck"></div>
+      <p class="optiontext">Always Center Desert</p>
+      <div class="fakecheck"></div>
+      <p class="optiontext">Hide Number Tokens</p> -->
+    </div>
+  </body>
+</html>
