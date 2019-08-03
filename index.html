@@ -92,6 +92,9 @@
         document.getElementById("swipe3").style.top="0%"
         document.getElementById("swipe4").style.top="0%"
         scaleTime=false
+        setTimeout(()=>{
+          window.location.href=src
+        },600)
       }
     </script>
   </head>  
@@ -102,7 +105,7 @@
     <span id="swipe3" class="swipe"></span>
     <span id="swipe4" class="swipe"></span>
     <div id="cont" onclick="fan(this)">
-    <div class="menu" id="a" onclick="select(this)"></div>
+    <div class="menu" id="a" onclick="select(this,catan)"></div>
     <div class="menu" id="b" onclick="select(this)"></div>
     <div class="menu" id="c" onclick="select(this)"></div>
     <div class="menu" id="d" onclick="select(this)"></div>
