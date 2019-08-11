@@ -13,11 +13,13 @@
       var ctx = c.getContext("2d");
       ctx.fillStyle="#111111"
       ctx.fillRect(0,0,c.width,c.height)
+      ctx.fillStyle="#333333"
+      ctx.fillRect(0,0,c.width,65)
       ctx.fillStyle="#eeee88"
       var i = 0
       while(i<900){
         var x = Math.floor(Math.random()*c.width);
-        var y = Math.floor(Math.random()*c.height-80)+160;
+        var y = Math.floor(Math.random()*c.height-80)+145;
         var s = Math.floor(Math.random()*4)+1;
         ctx.fillRect(x,y,s,s)
         i++
@@ -48,8 +50,8 @@
         color: #888888;
         font-family: 'Raleway', sans-serif;
         position: absolute;
-        left: 60%;
-        margin-top: -4%;
+        left: 40%;
+        margin-top: -3.4%;
       }
     </style>
   </head>
