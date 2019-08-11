@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+    <div id="returnbox"  title="Return to maplespace.me" onclick="back()">
+    <p1 id="rerurn" class="header">MAPLE<p1 class="header" id="space">SPACE</p1>.ME</p1>
+    </div>    
+    <span id="swipe1" class="swipe"></span>
+    <span id="swipe2" class="swipe"></span>
+    <span id="swipe3" class="swipe"></span>
+    <span id="swipe4" class="swipe"></span>
+<title>maplespace.me</title>
+<link rel="shortcut icon" href="https://cdn.glitch.com/99f0e881-8b0e-4120-b032-e55116f14a7a%2Fpointer_FaW_icon.ico?1555790676273">
+<span class="dot" id="1" onclick="dotClicked(this.id)" title="This is dot."></span>
+<h1 id="scr" class="scr" style="font-family:helvetica;">1</h1>
+<p id="int" class="int">1</p>
+<p id="dec" class="int">1</p>
+
+
+<script>
+      window.onload=function() {
+        document.getElementById("swipe1").style.top="-100%"
+        document.getElementById("swipe2").style.top="-100%"
+        document.getElementById("swipe3").style.top="-100%"
+        document.getElementById("swipe4").style.top="-100%"
+      }
+      function back() {
+       window.location.href = "index.html" 
+      }  
+function dotClicked(id) {
+    var fadeTarget = document.getElementById(id);
+    var a = 1
+    fadeTarget.style.transform = "scale(0.9,0.9)"
+    fadeTarget.style.cursor = "default"
+    fadeTarget.removeAttribute("onclick");
+    
+    var fadeEffect = setInterval(function () {
+        if (!fadeTarget.style.opacity) {
+            fadeTarget.style.opacity = 0.75;
+        }
+        if (fadeTarget.style.opacity > 0) {
+            fadeTarget.style.opacity -= (0.075/2);
+            a-=0.05
+            fadeTarget.style.transform = "scale("+a+","+a+")"
+        } else {
+  clearInterval(fadeEffect);
+  document.getElementById(id).style.display = "none"
+  document.getElementById("dec").innerHTML = Number(document.getElementById("dec").innerHTML)-1
+  var dec = Number(document.getElementById("dec").innerHTML)
+  if(dec<=0){
+  document.getElementById("scr").innerHTML = Number(document.getElementById("scr").innerHTML)+1
+  var i = Number(document.getElementById("int").innerHTML)
+  document.getElementById("int").innerHTML = i+1
+  var r = Math.random()*360
+  document.getElementById("int").style.color = "hsl("+r+",95%,70%"
+  document.getElementById("dec").style.color = "hsl("+r+",95%,70%"
+  document.getElementById("dec").innerHTML = document.getElementById("int").innerHTML
+  i = Number(document.getElementById("int").innerHTML)
+    var div = document.getElementById('1')
+    var clone = div.cloneNode(true); // true means clone all childNodes and all event handlers
+    clone.id = i;
+    clone.style.transform = "scale(1,1)"
+    document.body.appendChild(clone);
+    while(i>=1){
+    var col = Math.floor(Math.random()*360)
+    document.getElementById(i.toString()).style.transform = "scale(1,1)"
+    var siz = Math.floor(Math.random()*50)+50
+    document.getElementById(i.toString()).style.width = siz + "px"
+    document.getElementById(i.toString()).style.height = siz + "px"
+    document.getElementById(i.toString()).style.display = "block"
+    var top = Math.floor(Math.random()*100)
+    var left = Math.floor(Math.random()*100) 
+    document.getElementById(i.toString()).style.top = top + "%"
+    document.getElementById(i.toString()).style.left = left + "%"
+    document.getElementById(i.toString()).style.backgroundColor="hsl("+r+",85%,80%)"
+
+    var marginleft = left>50 ? 0-siz : siz
+    var margintop = top>50 ? 0-siz : siz
+    document.getElementById(i.toString()).style.marginLeft = marginleft + "px"
+    document.getElementById(i.toString()).style.marginTop = margintop + "px"
+      i--
+    }    
+    var scl = 0
+    var opacity = 0
+    var object = document.getElementsByClassName("dot")
+    var length = object.length
+    var interval = setInterval(()=>{
+    var a = 0
+    while(a<length){
+     object[a].style.transform = "scale("+scl+","+scl+")"
+     object[a].style.opacity = opacity
+     a++
+    }
+    if(opacity>=0.75){
+     clearInterval(interval) 
+    a=0
+    while(a<length){
+     object[a].setAttribute("onclick","dotClicked("+object[a].id+")");
+     a++
+    }
+    }
+    opacity+=0.075/2
+    scl+=0.05
+    },20)
+    var a = 0
+    while(a<length){
+     object[a].setAttribute("onclick","dotClicked()");
+     object[a].style.cursor = "pointer"
+     a++
+    }
+    return
+  }
+        }
+  },10)
+}
+</script>
+  <style>
+  body {
+  background-color: #000000;
+  overflow: hidden;
+  }
+      .swipe {
+        width: 25%;
+        height: 100%;
+        display: block;
+        position: absolute;
+        left: 0%;
+        top: 0%;
+        transition: all 0.8s ease-in-out;
+        transform-origin: 50% 50%;
+        background-color: #eeeeee;
+        z-index: 55;
+      }
+      #swipe2 {
+        left: 25%;
+        transition-delay: 0.3s;
+      }
+      #swipe3 {
+        left: 50%;
+        transition-delay: 0.6s;
+      }
+      #swipe4 {
+        left: 75%;
+        transition-delay: 0.9s;
+      }
+      .header {
+        font-family: 'Raleway', sans-serif;
+        font-size: 40px;
+        font-weight: thin;
+        color: white;
+        user-select: none;
+      }
+      #space {color: #999999;font-weight: normal;}
+    #return {
+      position: relative;
+      z-index: 1;
+      width: 40px;
+      height: 40px;
+      }
+    #returnbox {
+      position: relative;
+      z-index: 2;
+      height: 40px;
+      width: 40px;
+      cursor: pointer;
+      }
+  .int {
+    opacity: 0;
+    color: hsl(0,100%,70%);
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    transition: all 1s linear;
+  }
+  .scr {
+    position: absolute;
+    top: 2.5%;
+    opacity: 0;
+    color: #ddd;
+    font-size: 95vw;
+    opacity: 1;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    z-index: -1
+    }
+  .dot {
+  opacity: 0.9;
+  height: 200px;
+  width: 200px;
+  background-color: hsl(0,85%,80%);
+  border-radius: 50%;
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-left: -100px;
+  margin-top: -100px;
+  cursor: pointer;
+  transform-origin: 50% 50%;
+  }
+  .dot:hover {
+    opacity: 0.95
+    }
+  </style>
+  
+  </head>
+  <body>
+  </body>
+</html>
