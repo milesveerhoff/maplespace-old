@@ -17,7 +17,7 @@
       var i = 0
       while(i<900){
         var x = Math.floor(Math.random()*c.width);
-        var y = Math.floor(Math.random()*c.height);
+        var y = Math.floor(Math.random()*c.height-80)+160;
         var s = Math.floor(Math.random()*4)+1;
         ctx.fillRect(x,y,s,s)
         i++
@@ -28,6 +28,7 @@
         position: absolute;
         left: 0%;
         top: 0%;
+        z-index: -5;
       }
       .maplespace {
         -webkit-touch-callout: none;
@@ -40,15 +41,24 @@
         font-size: 40px;
         font-weight: thin;
         color: #eeeeee;
-        z-index: 3;
         position: relative;
       }
       #space {color: #999999;font-weight: normal;}
+      #oof {
+        color: #888888;
+        font-family: 'Raleway', sans-serif;
+        position: absolute;
+        left: 60%;
+        margin-top: -4%;
+      }
     </style>
   </head>
   
   <body>
     <p1 class="maplespace">MAPLE<p1 class="maplespace" id="space">SPACE</p1>.ME</p1>
+    <h1 id="oof">
+      What? Thought there would be something here?
+    </h1>
   </body>
   
 </html>
