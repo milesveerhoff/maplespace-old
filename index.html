@@ -18,7 +18,7 @@
       while(i<starcount){
         stars.x[i] = Math.floor(Math.random()*c.width);
         stars.y[i] = Math.floor(Math.random()*(c.height-65))+65;
-        stars.s[i] = Math.floor(Math.random()*4)+1;
+        stars.s[i] = Math.random()*4+1;
         i++;
       }
       setInterval(()=>{
@@ -30,7 +30,7 @@
       i = 0
       while(i<starcount){
         ctx.fillRect(stars.x[i],stars.y[i],stars.s[i],stars.s[i])
-        stars.y[i]+=1
+        stars.y[i]+=1.5*(1+stars.s[i]/1.5)
         if(stars.y[i]>=c.height+stars.s[i]){
           stars.y[i]=65;
           stars.x[i] = Math.floor(Math.random()*c.width);
