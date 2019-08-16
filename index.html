@@ -6,16 +6,12 @@
     <title>MAPLESPACE.ME</title>
     <canvas id="canvas"></canvas>
     <script>
-      var mouseX=50,
-      mouseY=50;
+      var mouseX=window.innerWidth/2,
+      mouseY=window.innerWidth/2-160;
       function angle(x, y) {
        return Math.atan2(y-(window.innerHeight-80)/2+80, x-window.innerWidth/2) * 180 / Math.PI;
       }
       window.addEventListener("mousemove", function(e){
-        mouseX=e.clientX
-        mouseY=e.clientY
-      })
-      window.addEventListener("touchmove", function(e){
         mouseX=e.clientX
         mouseY=e.clientY
       })
@@ -25,13 +21,15 @@
       var ctx = c.getContext("2d");
       var stars = {x:[],
                    y:[],
-                   s:[]}
+                   s:[],
+                   c:[]}
       var starcount = 1000
-      var i = 0 
+      var i = 0
       while(i<starcount){
         stars.x[i] = Math.floor(Math.random()*c.width);
         stars.y[i] = Math.floor(Math.random()*(c.height-65))+65;
         stars.s[i] = Math.random()*4+1;
+        stars.c[i] = "hsl("+(Math.floor(Math.random()*40)+20)+",100%,85%"
         i++;
       }
       console.log(mouseX)
@@ -39,13 +37,16 @@
       ctx.fillStyle="#111111"
       ctx.fillRect(0,0,c.width,c.height)
 
-      ctx.fillStyle="#ffff66"
       var centY = (c.height-80)/2+80
       var centX = c.width/2
       i = 0
       while(i<starcount){
+        var grd = ctx.createRadialGradient(stars.x[i],stars.y[i],stars.s[i]-(stars.s[i]/1.6), stars.x[i],stars.y[i],stars.s[i]);
+        grd.addColorStop(0, stars.c[i]+")");
+        grd.addColorStop(1, stars.c[i]+",0)");
+        ctx.fillStyle=grd
         ctx.beginPath()
-        ctx.arc(stars.x[i],stars.y[i],stars.s[i]/2,0,2*Math.PI)
+        ctx.arc(stars.x[i],stars.y[i],stars.s[i],0,2*Math.PI)
         ctx.fill()
         var sp = 1*(0.75+stars.s[i]/1.5)
         stars.y[i]+=sp*((mouseY-centY)/centY)*-1
